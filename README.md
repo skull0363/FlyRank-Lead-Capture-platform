@@ -1,3 +1,5 @@
+Embeddable Widget & Lead Capture Platform
+
 A platform that lets a customer define a widget — signup form, CTA, or popover — and embed it on any website with a single <script> tag. Built for the FlyRank Internship Backend Track capstone.
 
 When a visitor on an external site submits the widget's form, the request is validated, rate-limited, spam-filtered with a honeypot, enriched with IP-based geolocation through a two-provider fallback chain, stored, and shown to the widget's owner in an authenticated dashboard — all while the service treats the request as coming from a browser it does not control and cannot trust.
