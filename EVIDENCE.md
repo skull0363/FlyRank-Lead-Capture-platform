@@ -1,46 +1,42 @@
 
-=================== test session starts ===================
-platform win32 -- Python 3.13.9, pytest-9.1.1, pluggy-1.6.0-- C:\Users\ethan\OneDrive\Documents\GitHub\FlyRank Lead Capture platform\.venv\Scripts\python.exe
-cachedir: .pytest_cache
-rootdir: C:\Users\ethan\OneDrive\Documents\GitHub\FlyRank Lead Capture platform
-plugins: anyio-4.14.2, asyncio-1.4.0
-asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
-collected 0 items / 1 error                                
+collected 7 items                                          
 
-========================= ERRORS ==========================
-_______ ERROR collecting tests/test_submissions.py ________
-tests\test_submissions.py:3: in <module>
-    from app.main import app
-app\main.py:19: in <module>
-    from app.api.submissions import limiter
-app\api\submissions.py:7: in <module>
-    from app.db import get_db
-app\db.py:7: in <module>
-    engine = create_engine(os.getenv("DATABASE_URL"))
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-<string>:2: in create_engine
-    ???
-.venv\Lib\site-packages\sqlalchemy\util\deprecations.py:281: in warned
-    return fn(*args, **kwargs)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^
-.venv\Lib\site-packages\sqlalchemy\engine\create.py:564: increate_engine
-    u = _url.make_url(url)
-        ^^^^^^^^^^^^^^^^^^
-.venv\Lib\site-packages\sqlalchemy\engine\url.py:860: in make_url
-    raise exc.ArgumentError(
-E   sqlalchemy.exc.ArgumentError: Expected string or URL object, got None
+tests/test_submissions.py::test_oversized_payload_rejected PASSED [ 14%]
+tests/test_submissions.py::test_missing_required_field PASSED [ 28%]
+tests/test_submissions.py::test_honeypot_blocks_spam PASSED[ 42%]
+tests/test_submissions.py::test_duplicate_idempotency_key_does_not_double_store PASSED [ 57%]
+tests/test_submissions.py::test_geo_fallback_to_provider_b PASSED [ 71%]
+tests/test_submissions.py::test_all_providers_down_degradesPASSED [ 85%]
+tests/test_submissions.py::test_rate_limit_returns_429_on_burst PASSED [100%]
+
 ==================== warnings summary =====================
 .venv\Lib\site-packages\fastapi\testclient.py:1
   C:\Users\ethan\OneDrive\Documents\GitHub\FlyRank Lead Capture platform\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
     from starlette.testclient import TestClient as TestClient  # noqa
 
-.venv\Lib\site-packages\_pytest\cacheprovider.py:469
-  C:\Users\ethan\OneDrive\Documents\GitHub\FlyRank Lead Capture platform\.venv\Lib\site-packages\_pytest\cacheprovider.py:469: PytestCacheWarning: could not create cache path C:\Users\ethan\OneDrive\Documents\GitHub\FlyRank Lead Capture platform\.pytest_cache\v\cache\nodeids: [WinError 5] Access isdenied: 'C:\\Users\\ethan\\OneDrive\\Documents\\GitHub\\FlyRank Lead Capture platform\\pytest-cache-files-7k3sdj5q' -> 'C:\\Users\\ethan\\OneDrive\\Documents\\GitHub\\FlyRank LeadCapture platform\\.pytest_cache'
-    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+app\api\schemas.py:19
+  C:\Users\ethan\OneDrive\Documents\GitHub\FlyRank Lead Capture platform\app\api\schemas.py:19: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed inV3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class SubmissionCreate(BaseModel):
+
+tests/test_submissions.py: 12 warnings
+  C:\Users\ethan\OneDrive\Documents\GitHub\FlyRank Lead Capture platform\.venv\Lib\site-packages\sqlalchemy\sql\schema.py:3627: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Usetimezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+
+tests/test_submissions.py::test_oversized_payload_rejected
+tests/test_submissions.py::test_missing_required_field
+tests/test_submissions.py::test_honeypot_blocks_spam
+tests/test_submissions.py::test_duplicate_idempotency_key_does_not_double_store
+tests/test_submissions.py::test_rate_limit_returns_429_on_burst
+  C:\Users\ethan\OneDrive\Documents\GitHub\FlyRank Lead Capture platform\app\services\auth.py:24: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    payload = {"sub": tenant_id, "exp": datetime.utcnow() +timedelta(days=7)}
+
+tests/test_submissions.py::test_oversized_payload_rejected
+tests/test_submissions.py::test_missing_required_field
+tests/test_submissions.py::test_honeypot_blocks_spam
+tests/test_submissions.py::test_duplicate_idempotency_key_does_not_double_store
+tests/test_submissions.py::test_rate_limit_returns_429_on_burst
+  C:\Users\ethan\OneDrive\Documents\GitHub\FlyRank Lead Capture platform\app\api\widgets.py:51: PydanticDeprecatedSince20: The `dict` method is deprecated; use `model_dump` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    widget = Widget(tenant_id=tenant.id, **body.dict())
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-================= short test summary info =================
-ERROR tests/test_submissions.py - sqlalchemy.exc.ArgumentError: Expected string or URL ob...
-!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!
-============== 2 warnings, 1 error in 4.75s ===============
-(.venv) 
+============= 7 passed, 24 warnings in 3.26s ==============
