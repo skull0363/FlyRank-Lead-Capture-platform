@@ -1,5 +1,7 @@
 from pydantic import BaseModel, EmailStr, Field, constr
 from typing import List, Optional, Dict, Any
+from pydantic import BaseModel, EmailStr, constr
+
 
 class WidgetField(BaseModel):
     name: str
@@ -22,3 +24,15 @@ class SubmissionCreate(BaseModel):
     class Config:
         # reject payloads with too many fields / oversized strings
         pass
+
+
+
+class TenantRegister(BaseModel):
+    name: constr(min_length=1, max_length=100)
+    email: EmailStr
+    password: constr(min_length=8, max_length=128)
+
+
+class TenantLogin(BaseModel):
+    email: EmailStr
+    password: constr(min_length=1, max_length=128)
